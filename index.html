@@ -13,19 +13,20 @@
         <span>Player 1 starts!</span>
         <p>
             Player 1: <input type="text" name="player1Name">
-            <input type="radio" name="option1" value="X"/> X
-            <input type="radio" name="option1" value="O" /> O
+            <input type="radio" name="option1" value="X" id='option1X' /> X
+            <input type="radio" name="option1" value="O" id='option1O' /> O
+
         </p>
         <p>
             Player 2: <input type="text" name="player2Name">
-            <input type="radio" name="option2" value="X"/> X
-            <input type="radio" name="option2" value="O" /> O
+            <input type="radio" name="option2" value="X" id='option2X' /> X
+            <input type="radio" name="option2" value="O" id='option2O' /> O
+
         </p>
+        <p><input type="submit" name="submit" value='submit'></p>
     </form>
     <div id="board">
-
     </div>
-    <div><button id="playGame">Play</button></div>
     <script src="app.js"></script>
 </body>
 
