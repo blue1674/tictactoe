@@ -11,6 +11,7 @@ const game = (function () {
         [player1, player2] = [p1, p2];
     };
     function displayBoard() {
+        form.style.display = 'none'; 
         document.getElementById('container').style.display = 'grid';
         document.getElementById('playerDetails').innerHTML = `<p>Player 1: ${player1.name}</p><p>Player 2: ${player2.name} <p></p>`
         for (let i = 0; i < 9; i++) {
