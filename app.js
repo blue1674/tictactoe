@@ -2,14 +2,17 @@
 const game = (function () {
     'use strict';
     const _board = document.getElementById('board');
+   
     let _markedBlocks = 0;
     let gameBoard = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
     let blocks = [];
-    let player1, player2; 
+    let player1, player2;
     const setPlayers = (p1, p2) => {
-        [player1, player2] = [p1, p2]; 
+        [player1, player2] = [p1, p2];
     };
     function displayBoard() {
+        document.getElementById('container').style.display = 'grid';
+        document.getElementById('playerDetails').innerHTML = `<p>Player 1: ${player1.name}</p><p>Player 2: ${player2.name} <p></p>`
         for (let i = 0; i < 9; i++) {
             const block = document.createElement('div');
             block.textContent = gameBoard[i];
@@ -72,31 +75,45 @@ const game = (function () {
             return blocks[i].textContent;
         }
         function alertWinner(i) {
+            const winnerDiv = document.getElementById('winner'); 
             if (i === -1)
-                alert("It's a tie");
+            winnerDiv.textContent = `It's a TIE :( !`
             else {
-                let winner;
-                winner = player1.option === getBlockText(i) ? player1.name : player2.name;
-                alert(`The winner is ${winner}`);
+                let winner = player1.option === getBlockText(i) ? player1.name : player2.name;
+                winnerDiv.innerHTML = `Aaand the WINNER is <strong>${winner}</strong>!!!`
             }
-            document.location.reload();
+            const playAgain = document.getElementById('playAgain');
+            playAgain.style.display = 'inline-flex';
+            playAgain.addEventListener('click', function() {
+                window.location.reload();
+            })
+        }
+        label1:
+        {
+            for (let i = 0; i <= 6; i += 3) {
+                if (checkRows(i)) {
+                    alertWinner(i);
+                    break label1;
+                }
+
+            }
+            for (let i = 0; i <= 2; i += 1) {
+                if (checkColumns(i)) {
+                    alertWinner(i);
+                    break label1;
+                }
+            }
+            for (let i = 0; i <= 2; i += 2) {
+                if (checkDiagonal(i)) {
+                    alertWinner(i);
+                    break label1;
+                }
+                if (i == 2 && _markedBlocks === 9) {
+                    alertWinner(-1);
+                }
+            }
         }
 
-        for (let i = 0; i <= 6; i += 3) {
-            if (checkRows(i))
-                alertWinner(i);
-        }
-        for (let i = 0; i <= 2; i += 1) {
-            if (checkColumns(i))
-                alertWinner(i);
-        }
-        for (let i = 0; i <= 2; i += 2) {
-            if (checkDiagonal(i))
-                alertWinner(i);
-        }
-        if (_markedBlocks === 9) {
-            alertWinner(-1);
-        }
 
         return checkRows(0) || checkRows(3) || checkRows(6) || checkColumns(0) || checkColumns(1) || checkColumns(2) || checkDiagonal(0) || checkDiagonal(2);
     }
@@ -109,7 +126,7 @@ const Player = function (name, option) {
 }
 let currentPlayer;
 const form = document.querySelector('form');
-
+const container = document.getElementById('container'); 
 const option2X = document.getElementById('option2X');
 const option2O = document.getElementById('option2O');
 const option1X = document.getElementById('option1X');
@@ -129,7 +146,7 @@ form.addEventListener('submit', function (e) {
     const formData = Object.fromEntries(new FormData(form));
     currentPlayer = formData.option1;
     form.setAttribute('hidden', 'true');
-    game.setPlayers(Player(formData.player1Name, formData.option1), Player(formData.player2Name, formData.option2)); 
+    game.setPlayers(Player(formData.player1Name, formData.option1), Player(formData.player2Name, formData.option2));
     game.displayBoard();
 
 });

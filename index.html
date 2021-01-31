@@ -5,28 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lacquer&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <title>Tic Tac Toe</title>
 </head>
 
 <body>
     <form action="#" id="playersInfo">
-        <span>Player 1 starts!</span>
-        <p>
-            Player 1: <input type="text" name="player1Name" value="Player 1">
-            <input type="radio" name="option1" value="X" id='option1X' checked/> X
-            <input type="radio" name="option1" value="O" id='option1O' /> O
+        <p id="title">Player 1 starts!</p>
+        <p id="player1det">
+            <span>Player 1 : </span><input type="text" name="player1Name" value="Player 1" id="name1">
+            <input type="radio" name="option1" value="X" id='option1X' checked /><span>X</span>
+            <input type="radio" name="option1" value="O" id='option1O' /><span>O</span>
 
         </p>
-        <p>
-            Player 2: <input type="text" name="player2Name" value="Player 2">
-            <input type="radio" name="option2" value="X" id='option2X' /> X
-            <input type="radio" name="option2" value="O" id='option2O' checked /> O
+        <p id="player2det">
+            <span>Player 2 : </span> <input type="text" name="player2Name" value="Player 2" id="name2">
+            <input type="radio" name="option2" value="X" id='option2X' /><span>X</span>
+            <input type="radio" name="option2" value="O" id='option2O' checked /><span>O</span>
 
         </p>
-        <p><input type="submit" name="submit" value='submit'></p>
+        <p id="submit"><input type="submit" name="submit" value='Start'></p>
     </form>
-    <div id="board">
+    <div id="container">
+        <header>
+            Tic Tac Toe
+        </header>
+        <div id="playerDetails">
+        </div>
+        <div id="board">
+        </div>
+        <div id="winner">
+        </div>
+        <button id="playAgain">
+            Play Again
+        </button>
     </div>
+
     <script src="app.js"></script>
 </body>
 
