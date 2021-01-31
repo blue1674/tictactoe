@@ -5,7 +5,10 @@ const game = (function () {
     let _markedBlocks = 0;
     let gameBoard = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
     let blocks = [];
-    let _setWinner;
+    let player1, player2; 
+    const setPlayers = (p1, p2) => {
+        [player1, player2] = [p1, p2]; 
+    };
     function displayBoard() {
         for (let i = 0; i < 9; i++) {
             const block = document.createElement('div');
@@ -78,49 +81,33 @@ const game = (function () {
             }
             document.location.reload();
         }
-        if (checkRows(0)) {
-            alertWinner(0);
-        }
-        else if (checkRows(3)) {
-            alertWinner(3);
-        }
 
-        else if (checkRows(6)) {
-            alertWinner(6);
+        for (let i = 0; i <= 6; i += 3) {
+            if (checkRows(i))
+                alertWinner(i);
         }
-
-        else if (checkColumns(0)) {
-            alertWinner(0);
+        for (let i = 0; i <= 2; i += 1) {
+            if (checkColumns(i))
+                alertWinner(i);
         }
-        else if (checkColumns(1)) {
-            alertWinner(1);
+        for (let i = 0; i <= 2; i += 2) {
+            if (checkDiagonal(i))
+                alertWinner(i);
         }
-        else if (checkColumns(2)) {
-            alertWinner(2);
-        }
-        else if (checkDiagonal(0)) {
-            alertWinner(0);
-
-        }
-        else if (checkDiagonal(2)) {
-            alertWinner(2);
-        }
-        else if (_markedBlocks === 9) {
+        if (_markedBlocks === 9) {
             alertWinner(-1);
         }
 
         return checkRows(0) || checkRows(3) || checkRows(6) || checkColumns(0) || checkColumns(1) || checkColumns(2) || checkDiagonal(0) || checkDiagonal(2);
     }
 
-    return { displayBoard };
+    return { displayBoard, setPlayers };
 })();
 
 const Player = function (name, option) {
     return { name, option };
 }
 let currentPlayer;
-let player1;
-let player2;
 const form = document.querySelector('form');
 
 const option2X = document.getElementById('option2X');
@@ -141,10 +128,10 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(form));
     currentPlayer = formData.option1;
-    player1 = Player(formData.player1Name, formData.option1);
-    player2 = Player(formData.player2Name, formData.option2); 
     form.setAttribute('hidden', 'true');
+    game.setPlayers(Player(formData.player1Name, formData.option1), Player(formData.player2Name, formData.option2)); 
     game.displayBoard();
+
 });
 
 
