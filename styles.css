@@ -17,24 +17,39 @@ form{
     grid-template-rows: repeat(4, 1fr);
     grid-template-areas: 
     ". title title ."
-    ". name1 name1 ."
-    ". name2 name2 ."
+    ". details details ."
+    ". details details ."
     ". submit submit .";
     font-size: 200%;
     justify-content: center;
     justify-items: center;
     align-items: center;
-    font-family: 'Audiowide', cursive;
+}
+
+#details{
+    grid-area: details;
+}
+
+input[type = text]{
+    width: 90%;
+    height: 100%;
 }
 
 #title{
     grid-area: title;
+    font-size: 300%;
 }
-#player1det{
-    grid-area: name1;
+#player1det, #player2det{
+    width: 100%;
+    display:grid;
+    grid-template-columns: 40% 40% 5% 5% 5% 5%;
+    gap: 1%; 
 }
-#player2det{
-    grid-area: name2; 
+
+
+input[type = "radio"]{
+    align-self: center;
+    justify-self: end;
 }
 #submit{
     grid-area: submit; 
