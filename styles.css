@@ -33,6 +33,8 @@ form{
 input[type = text]{
     width: 90%;
     height: 100%;
+    font-family:'Lacquer', cursive ;
+    font-size: 70%;
 }
 
 #title{
